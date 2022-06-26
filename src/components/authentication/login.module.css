@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+
+* {
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+}
+
+legend {
+  margin: 1.3rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.icon {
+  display: block;
+  margin: 2rem auto 1rem auto;
+  transform: scale(2.8);
+  color: white;
+  background-color: #1cbd7e;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #333333;
+  margin: 1rem auto 1rem auto;
+}
+
+.gmail {
+  margin: 0.21rem 0.5rem 0rem 0rem;
+}

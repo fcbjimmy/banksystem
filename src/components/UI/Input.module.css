@@ -1,0 +1,47 @@
+.formgroup {
+  position: relative;
+  transition: all 0.2s;
+}
+
+.inputcontrol {
+  box-shadow: 0;
+  width: 100%;
+  margin: 1rem 0rem 0rem 0rem;
+  padding: 0 0.2rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  border-style: none none solid none;
+  transition: all 0.3s;
+}
+
+.inputcontrol::placeholder {
+  color: transparent;
+}
+
+.inputcontrol:focus {
+  box-shadow: none;
+  outline: none;
+  border-color: #04a96d;
+}
+
+.inputcontrol:focus + .dynamiclabel,
+.inputcontrol:not(:placeholder-shown) + .dynamiclabel {
+  transform: translateY(-3.5rem) scale(0.8);
+  color: #04a96d;
+}
+
+.dynamiclabel {
+  display: block;
+  font-size: 1rem;
+  color: #333333;
+  opacity: 1;
+  margin-left: 0.3rem;
+  transform: translateY(-180%);
+  transform-origin: 0 0;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+.formgroup:focus-within {
+  transform: scale(1.05, 1.05);
+}
