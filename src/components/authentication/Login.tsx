@@ -5,12 +5,11 @@ import Input from "../UI/Input";
 import { MdLockOutline } from "react-icons/md";
 import { BsGoogle } from "react-icons/bs";
 import Card from "../UI/Card";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  let navigate = useNavigate();
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -58,7 +57,7 @@ const Login: FC = () => {
           Do you have an account?
           <br />
         </div>
-        <a href="/signup">Sign up!</a>
+        <Link to="/signup">Sign up!</Link>
       </form>
     </Card>
   );
