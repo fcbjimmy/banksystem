@@ -6,18 +6,30 @@ import { MdLockOutline } from "react-icons/md";
 import { BsGoogle } from "react-icons/bs";
 import Card from "../UI/Card";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+const url = "/users/login";
 const Login: FC = () => {
-  const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmitForm = (e: SyntheticEvent) => {
+  const handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
-    setEmail("");
+    try {
+      const response = await axios.post(url, { username, password });
+      console.log(response.data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log("Unexpected error", error);
+      }
+    }
+    setUsername("");
     setPassword("");
   };
 
@@ -30,13 +42,13 @@ const Login: FC = () => {
         <legend>Login</legend>
         <div>
           <Input
-            type="email"
-            value={email}
-            placeholder="Email"
+            type="text"
+            value={username}
+            placeholder="Username"
             required
-            name={"Email"}
+            name={"username"}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(event.target.value)
+              setUsername(event.target.value)
             }
           />
         </div>
@@ -46,6 +58,7 @@ const Login: FC = () => {
             value={password}
             placeholder="Password"
             name={"password"}
+            required
             onChange={handleInputPassword}
           />
         </div>

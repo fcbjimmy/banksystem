@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  SyntheticEvent,
-  ChangeEvent,
-} from "react";
+import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
 import csstyle from "./login.module.css";
@@ -12,6 +6,9 @@ import { FaUserAlt } from "react-icons/fa";
 import Button from "../UI/Button";
 import { BsGoogle } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+const url = "/users";
 
 const Signup: FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -40,26 +37,24 @@ const Signup: FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmitForm = (e: SyntheticEvent) => {
+  const handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
-
-    fetch("0.0.0.0:8080/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username,
+    try {
+      const response = await axios.post(url, {
+        username,
         first_name: firstname,
         last_name: lastname,
-        email: email,
-        password: password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("congrats");
-        console.log(data);
+        email,
+        password,
       });
-
+      console.log(response.data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log("Unexpected error", error);
+      }
+    }
     setUsername("");
     setFirstName("");
     setLastName("");
