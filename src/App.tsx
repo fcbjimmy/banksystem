@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/navbar/Navbar";
 import Login from "./components/authentication/Login";
 import Signup from "./components/authentication/Signup";
@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Errorpage } from "./pages/Errorpage";
 
 function App() {
+  const [test, setTest] = useState(true);
+
   return (
     <div className="App">
       <Router>
