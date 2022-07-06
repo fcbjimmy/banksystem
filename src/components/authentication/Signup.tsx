@@ -1,4 +1,5 @@
 import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
+import { debounce } from "lodash";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
 import csstyle from "./login.module.css";
@@ -12,6 +13,7 @@ const url = "/users";
 
 const Signup: FC = () => {
   const [username, setUsername] = useState<string>("");
+  const [data, setData] = useState<object | null>(null);
   const [firstname, setFirstName] = useState<string>("");
   const [lastname, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -37,6 +39,12 @@ const Signup: FC = () => {
     setPassword(e.target.value);
   };
 
+  const debounceName = debounce(handleInputName, 800);
+  const debounceFirstName = debounce(handleInputFirstName, 800);
+  const debounceLastName = debounce(handleInputLastName, 800);
+  const debounceInputEmail = debounce(handleInputEmail, 800);
+  const debounceInputPassword = debounce(handleInputPassword, 800);
+
   const handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
@@ -47,12 +55,12 @@ const Signup: FC = () => {
         email,
         password,
       });
-      console.log(response.data);
+      setData(response.data.access_token);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.error(error.message);
       } else {
-        console.log("Unexpected error", error);
+        console.error("Unexpected error", error);
       }
     }
     setUsername("");
@@ -71,39 +79,34 @@ const Signup: FC = () => {
           Please fill this form to create an account
         </div>
         <Input
-          value={username}
           placeholder={"Username"}
           required
           name={"username"}
-          onChange={handleInputName}
+          onChange={debounceName}
         />
         <Input
-          value={firstname}
           placeholder={"First Name"}
           required
           name={"firstname"}
-          onChange={handleInputFirstName}
+          onChange={debounceFirstName}
         />
         <Input
-          value={lastname}
           placeholder={"Last Name"}
           required
           name={"lastname"}
-          onChange={handleInputLastName}
+          onChange={debounceLastName}
         />
         <Input
-          value={email}
           placeholder={"Email"}
           required
           name={"email"}
-          onChange={handleInputEmail}
+          onChange={debounceInputEmail}
         />
         <Input
-          value={password}
           placeholder={"Password"}
           required
           name={"password"}
-          onChange={handleInputPassword}
+          onChange={debounceInputPassword}
         />
         <Button>Sign Up</Button>
         <Button icon>

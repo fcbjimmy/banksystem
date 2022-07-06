@@ -1,4 +1,5 @@
 import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
+import { debounce } from "lodash";
 import css from "./login.module.css";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
@@ -9,29 +10,39 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const url = "/users/login";
+
 const Login: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [data, setData] = useState<object | null>(null);
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
+  const handleInputUsername = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+
+  const debouncePassword = debounce(handleInputPassword, 800);
+  const debounceUsername = debounce(handleInputUsername, 800);
+
   const handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post(url, { username, password });
-      console.log(response.data);
+      setData(response.data.access_token);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.error(error.message);
       } else {
-        console.log("Unexpected error", error);
+        console.error("Unexpected error", error);
       }
     }
     setUsername("");
     setPassword("");
   };
+
+  console.log(data);
 
   return (
     <Card>
@@ -43,23 +54,19 @@ const Login: FC = () => {
         <div>
           <Input
             type="text"
-            value={username}
             placeholder="Username"
             required
             name={"username"}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setUsername(event.target.value)
-            }
+            onChange={debounceUsername}
           />
         </div>
         <div>
           <Input
             type="password"
-            value={password}
             placeholder="Password"
             name={"password"}
             required
-            onChange={handleInputPassword}
+            onChange={debouncePassword}
           />
         </div>
         <Button>Login</Button>
