@@ -1,19 +1,19 @@
-import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
-import { debounce } from "lodash";
-import css from "./login.module.css";
-import Button from "../UI/Button";
-import Input from "../UI/Input";
-import { MdLockOutline } from "react-icons/md";
-import { BsGoogle } from "react-icons/bs";
-import Card from "../UI/Card";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { FC, useState, SyntheticEvent, ChangeEvent } from 'react';
+import { debounce } from 'lodash';
+import css from './login.module.css';
+import Button from '../UI/Button';
+import Input from '../UI/Input';
+import { MdLockOutline } from 'react-icons/md';
+import { BsGoogle } from 'react-icons/bs';
+import Card from '../UI/Card';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const url = "/users/login";
+const url = '/users/login';
 
 const Login: FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [data, setData] = useState<object | null>(null);
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,11 +35,11 @@ const Login: FC = () => {
       if (error instanceof Error) {
         console.error(error.message);
       } else {
-        console.error("Unexpected error", error);
+        console.error('Unexpected error', error);
       }
     }
-    setUsername("");
-    setPassword("");
+    setUsername('');
+    setPassword('');
   };
 
   console.log(data);
@@ -53,18 +53,18 @@ const Login: FC = () => {
         <legend>Login</legend>
         <div>
           <Input
-            type="text"
-            placeholder="Username"
+            type='text'
+            placeholder='Username'
             required
-            name={"username"}
+            name={'username'}
             onChange={debounceUsername}
           />
         </div>
         <div>
           <Input
-            type="password"
-            placeholder="Password"
-            name={"password"}
+            type='password'
+            placeholder='Password'
+            name={'password'}
             required
             onChange={debouncePassword}
           />
@@ -77,7 +77,7 @@ const Login: FC = () => {
           Do you have an account?
           <br />
         </div>
-        <Link to="/signup">Sign up!</Link>
+        <Link to='/signup'>Sign up!</Link>
       </form>
     </Card>
   );

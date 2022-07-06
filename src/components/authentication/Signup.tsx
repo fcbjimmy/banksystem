@@ -1,23 +1,23 @@
-import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
-import { debounce } from "lodash";
-import Card from "../UI/Card";
-import Input from "../UI/Input";
-import csstyle from "./login.module.css";
-import { FaUserAlt } from "react-icons/fa";
-import Button from "../UI/Button";
-import { BsGoogle } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { FC, useState, SyntheticEvent, ChangeEvent } from 'react';
+import { debounce } from 'lodash';
+import Card from '../UI/Card';
+import Input from '../UI/Input';
+import csstyle from './login.module.css';
+import { FaUserAlt } from 'react-icons/fa';
+import Button from '../UI/Button';
+import { BsGoogle } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const url = "/users";
+const url = '/users';
 
 const Signup: FC = () => {
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string>('');
   const [data, setData] = useState<object | null>(null);
-  const [firstname, setFirstName] = useState<string>("");
-  const [lastname, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [firstname, setFirstName] = useState<string>('');
+  const [lastname, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const handleInputName = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -60,14 +60,14 @@ const Signup: FC = () => {
       if (error instanceof Error) {
         console.error(error.message);
       } else {
-        console.error("Unexpected error", error);
+        console.error('Unexpected error', error);
       }
     }
-    setUsername("");
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
+    setUsername('');
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -75,37 +75,20 @@ const Signup: FC = () => {
       <form onSubmit={handleSubmitForm}>
         <FaUserAlt className={csstyle.icon} />
         <legend className={csstyle.legend}>Sign Up</legend>
-        <div className={csstyle.description}>
-          Please fill this form to create an account
-        </div>
+        <div className={csstyle.description}>Please fill this form to create an account</div>
+        <Input placeholder={'Username'} required name={'username'} onChange={debounceName} />
         <Input
-          placeholder={"Username"}
+          placeholder={'First Name'}
           required
-          name={"username"}
-          onChange={debounceName}
-        />
-        <Input
-          placeholder={"First Name"}
-          required
-          name={"firstname"}
+          name={'firstname'}
           onChange={debounceFirstName}
         />
+        <Input placeholder={'Last Name'} required name={'lastname'} onChange={debounceLastName} />
+        <Input placeholder={'Email'} required name={'email'} onChange={debounceInputEmail} />
         <Input
-          placeholder={"Last Name"}
+          placeholder={'Password'}
           required
-          name={"lastname"}
-          onChange={debounceLastName}
-        />
-        <Input
-          placeholder={"Email"}
-          required
-          name={"email"}
-          onChange={debounceInputEmail}
-        />
-        <Input
-          placeholder={"Password"}
-          required
-          name={"password"}
+          name={'password'}
           onChange={debounceInputPassword}
         />
         <Button>Sign Up</Button>
@@ -117,7 +100,7 @@ const Signup: FC = () => {
           Already have an existing account?
           <br />
           <span>
-            Login <Link to="/">here!</Link>
+            Login <Link to='/'>here!</Link>
           </span>
         </div>
       </form>

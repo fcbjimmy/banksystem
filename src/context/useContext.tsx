@@ -1,18 +1,6 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  FC,
-  ReactNode,
-} from "react";
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { auth } from "../firebase/firebase-config";
+import { createContext, useState, useContext, useEffect, FC, ReactNode } from 'react';
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../firebase/firebase-config';
 
 interface props {
   children: ReactNode;
@@ -27,13 +15,13 @@ const googleProvider = new GoogleAuthProvider();
 const UserContextProvider: FC<props> = ({ children }) => {
   const [user, setUser] = useState<null | object>(null);
   const [loading, setLoading] = useState<boolean | undefined>();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (account) => {
       account ? setUser(account) : setUser(null);
-      setError("");
+      setError('');
       setLoading(false);
     });
     return unsubscribe;
@@ -56,9 +44,7 @@ const UserContextProvider: FC<props> = ({ children }) => {
     signInWithGmail,
   };
 
-  return (
-    <userContext.Provider value={contextValue}>{children}</userContext.Provider>
-  );
+  return <userContext.Provider value={contextValue}>{children}</userContext.Provider>;
 };
 
 export { useUserContext, userContext, UserContextProvider };
