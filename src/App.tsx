@@ -8,8 +8,6 @@ import { Errorpage } from './pages/Errorpage';
 import Modal from './components/UI/Modal';
 
 function App() {
-  const [test, setTest] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
   const [error, setError] = useState(false);
   const [loginError, setLoginError] = useState('');
 
@@ -24,8 +22,6 @@ function App() {
   const handleError = (error: boolean): void => {
     setError(error);
   };
-
-  console.log({ error });
 
   return (
     <div className='App'>

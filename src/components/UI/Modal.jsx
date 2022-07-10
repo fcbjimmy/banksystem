@@ -2,7 +2,6 @@ import React from 'react';
 import modalcss from './modal.module.css';
 
 function Modal({ onToggleModal, loginError }) {
-  console.log(loginError);
   return (
     <div className={modalcss.container}>
       <div>Oh Snap!</div>
