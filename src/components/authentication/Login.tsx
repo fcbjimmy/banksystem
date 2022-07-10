@@ -9,9 +9,14 @@ import Card from '../UI/Card';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+interface Props {
+  onLoginError(error: string): void;
+  onSetError(error: boolean): void;
+}
+
 const url = '/users/login';
 
-const Login: FC = () => {
+const Login: FC<Props> = ({ onLoginError, onSetError }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [data, setData] = useState<object | null>(null);
@@ -33,7 +38,8 @@ const Login: FC = () => {
       setData(response.data.access_token);
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error.message);
+        onLoginError(error.message);
+        onSetError(true);
       } else {
         console.error('Unexpected error', error);
       }
