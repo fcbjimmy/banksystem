@@ -8,8 +8,8 @@ import { Errorpage } from './pages/Errorpage';
 import Modal from './components/UI/Modal';
 
 function App() {
-  const [error, setError] = useState(false);
-  const [loginError, setLoginError] = useState('');
+  const [error, setError] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>('');
 
   useEffect(() => {}, [loginError, error]);
 
