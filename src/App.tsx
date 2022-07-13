@@ -6,37 +6,28 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Errorpage } from './pages/Errorpage';
 import Modal from './components/UI/Modal';
+import { useUserContext } from './context/useContext';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
-  const [error, setError] = useState<boolean>(false);
-  const [loginError, setLoginError] = useState<string>('');
+  // const [loginError, setLoginError] = useState<string>('');
 
-  useEffect(() => {}, [loginError, error]);
+  const { error, user, toggleModal, errorModal } = useUserContext();
 
-  const toggleModal = () => setError(!error);
-
-  const handleLoginError = (error: string): void => {
-    setLoginError(error);
-  };
-
-  const handleError = (error: boolean): void => {
-    setError(error);
-  };
+  useEffect(() => {}, [error, errorModal, user]);
 
   return (
     <div className='App'>
       <Router>
         <Routes>
-          <Route
-            path='/'
-            element={<Login onLoginError={handleLoginError} onSetError={handleError} />}
-          />
+          <Route path='/' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='*' element={<Errorpage />} />
         </Routes>
       </Router>
       <button onClick={toggleModal}>open</button>
-      {error && <Modal onToggleModal={toggleModal} loginError={loginError} />}
+      {errorModal && <Modal />}
+      {user && Dashboard}
     </div>
   );
 }

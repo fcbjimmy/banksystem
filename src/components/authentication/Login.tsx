@@ -8,18 +8,18 @@ import { BsGoogle } from 'react-icons/bs';
 import Card from '../UI/Card';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useUserContext } from '../../context/useContext';
 
-interface Props {
-  onLoginError(error: string): void;
-  onSetError(error: boolean): void;
-}
+interface Props {}
 
 const url = '/users/login';
 
-const Login: FC<Props> = ({ onLoginError, onSetError }) => {
+const Login: FC<Props> = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [data, setData] = useState<object | null>(null);
+
+  const { setUser, setError, signInWithGmail, setErrorModal } = useUserContext();
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -36,10 +36,11 @@ const Login: FC<Props> = ({ onLoginError, onSetError }) => {
     try {
       const response = await axios.post(url, { username, password });
       setData(response.data.access_token);
+      setUser(response.data.user);
     } catch (error) {
       if (error instanceof Error) {
-        onLoginError(error.message);
-        onSetError(true);
+        setError(error.message);
+        setErrorModal(true);
       } else {
         console.error('Unexpected error', error);
       }
@@ -76,7 +77,7 @@ const Login: FC<Props> = ({ onLoginError, onSetError }) => {
           />
         </div>
         <Button>Login</Button>
-        <Button icon>
+        <Button icon onClick={signInWithGmail}>
           <BsGoogle className={css.gmail} /> <span>Login with Gmail</span>
         </Button>
         <div>

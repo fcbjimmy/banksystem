@@ -6,7 +6,7 @@ interface props {
   children: ReactNode;
 }
 
-const userContext = createContext<object | null>(null);
+const userContext = createContext<void | object | null | any>(null);
 
 const useUserContext = () => useContext(userContext);
 
@@ -15,7 +15,8 @@ const googleProvider = new GoogleAuthProvider();
 const UserContextProvider: FC<props> = ({ children }) => {
   const [user, setUser] = useState<null | object>(null);
   const [loading, setLoading] = useState<boolean | undefined>();
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
+  const [errorModal, setErrorModal] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +28,7 @@ const UserContextProvider: FC<props> = ({ children }) => {
     return unsubscribe;
   }, [user]);
 
-  const signInWithGmail = () => {
+  const signInWithGmail = (): void => {
     signInWithPopup(auth, googleProvider);
   };
 
@@ -35,13 +36,19 @@ const UserContextProvider: FC<props> = ({ children }) => {
     signOut(auth);
   };
 
+  const toggleModal = () => setErrorModal(!errorModal);
+
   const contextValue = {
     user,
     loading,
     error,
+    errorModal,
+    setUser,
     signOutUser,
     setError,
     signInWithGmail,
+    toggleModal,
+    setErrorModal,
   };
 
   return <userContext.Provider value={contextValue}>{children}</userContext.Provider>;

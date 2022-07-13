@@ -8,6 +8,7 @@ import Button from '../UI/Button';
 import { BsGoogle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useUserContext } from '../../context/useContext';
 
 const url = '/users';
 
@@ -18,6 +19,8 @@ const Signup: FC = () => {
   const [lastname, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const { setErrorModal, setError } = useUserContext();
 
   const handleInputName = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -58,7 +61,8 @@ const Signup: FC = () => {
       setData(response.data.access_token);
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error.message);
+        setError(error.message);
+        setErrorModal(true);
       } else {
         console.error('Unexpected error', error);
       }
