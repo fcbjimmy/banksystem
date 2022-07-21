@@ -28,8 +28,6 @@ function App() {
           </Route>
         </Routes>
       </Router>
-      <button onClick={toggleModal}>open</button>
-      <button onClick={signOutUser}>Logout</button>
       {errorModal && <Modal />}
     </div>
   );
