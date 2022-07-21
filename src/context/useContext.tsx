@@ -25,6 +25,7 @@ const UserContextProvider: FC<props> = ({ children }) => {
       if (account) {
         const gmailUser = { ...account, isLogged: true };
         setUser(gmailUser);
+        localStorage.setItem('user', JSON.stringify(gmailUser));
         setGmail(true);
       }
       setError('');

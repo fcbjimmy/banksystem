@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import Navbar from './components/navbar/Navbar';
 import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
 import './App.css';
@@ -9,10 +8,9 @@ import Modal from './components/UI/Modal';
 import { useUserContext } from './context/useContext';
 import Dashboard from './components/dashboard/Dashboard';
 import ProtectedRoutes from './protectedroutes/ProtectedRoutes';
-import { json } from 'stream/consumers';
 
 function App() {
-  const { user, error, toggleModal, errorModal, setUser, signOutUser } = useUserContext();
+  const { user, errorModal } = useUserContext();
 
   useEffect(() => {}, [user]);
 

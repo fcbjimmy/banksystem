@@ -1,4 +1,4 @@
-import inputcss from './input.module.css';
+import inputcss from './Input.module.css';
 
 const Input = (props) => {
   const { children, type = 'text', placeholder, label, name, required, ...rest } = props;

@@ -7,6 +7,8 @@ interface Props {}
 const Dashboard: FC<Props> = () => {
   const { user, setUser, gmail, setGmail, signOutUser } = useUserContext();
 
+  console.log(user);
+
   const handleLogout = () => {
     setUser({});
     localStorage.removeItem('user');
@@ -20,7 +22,7 @@ const Dashboard: FC<Props> = () => {
 
   return (
     <>
-      <div>Hi {user.first_name}!</div>
+      <div>Hi {gmail ? user.displayName : user.first_name}!</div>
       <Button onClick={gmail ? handleLogoutForGmail : handleLogout}>Logout</Button>
     </>
   );
