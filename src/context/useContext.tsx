@@ -13,20 +13,25 @@ const useUserContext = () => useContext(userContext);
 const googleProvider = new GoogleAuthProvider();
 
 const UserContextProvider: FC<props> = ({ children }) => {
-  const [user, setUser] = useState<null | object>(null);
+  const [user, setUser] = useState<string | object>({});
   const [loading, setLoading] = useState<boolean | undefined>();
   const [error, setError] = useState<string>('');
   const [errorModal, setErrorModal] = useState<boolean>(false);
+  const [gmail, setGmail] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (account) => {
-      account ? setUser(account) : setUser(null);
+      if (account) {
+        const gmailUser = { ...account, isLogged: true };
+        setUser(gmailUser);
+        setGmail(true);
+      }
       setError('');
       setLoading(false);
     });
     return unsubscribe;
-  }, [user]);
+  }, []);
 
   const signInWithGmail = (): void => {
     signInWithPopup(auth, googleProvider);
@@ -38,20 +43,26 @@ const UserContextProvider: FC<props> = ({ children }) => {
 
   const toggleModal = () => setErrorModal(!errorModal);
 
-  const contextValue = {
-    user,
-    loading,
-    error,
-    errorModal,
-    setUser,
-    signOutUser,
-    setError,
-    signInWithGmail,
-    toggleModal,
-    setErrorModal,
-  };
-
-  return <userContext.Provider value={contextValue}>{children}</userContext.Provider>;
+  return (
+    <userContext.Provider
+      value={{
+        user,
+        loading,
+        error,
+        errorModal,
+        gmail,
+        setUser,
+        signOutUser,
+        setError,
+        signInWithGmail,
+        toggleModal,
+        setErrorModal,
+        setGmail,
+      }}
+    >
+      {children}
+    </userContext.Provider>
+  );
 };
 
 export { useUserContext, userContext, UserContextProvider };

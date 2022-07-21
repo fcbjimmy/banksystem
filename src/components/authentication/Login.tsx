@@ -1,4 +1,4 @@
-import { FC, useState, SyntheticEvent, ChangeEvent } from 'react';
+import { FC, useState, SyntheticEvent, ChangeEvent, useEffect } from 'react';
 import { debounce } from 'lodash';
 import css from './login.module.css';
 import Button from '../UI/Button';
@@ -17,9 +17,16 @@ const url = '/users/login';
 const Login: FC<Props> = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [data, setData] = useState<object | null>(null);
+  const [token, setToken] = useState<string>('');
+  const { setUser, setError, signInWithGmail, setErrorModal, user } = useUserContext();
 
-  const { setUser, setError, signInWithGmail, setErrorModal } = useUserContext();
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
 
   const handleInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -35,8 +42,10 @@ const Login: FC<Props> = () => {
     e.preventDefault();
     try {
       const response = await axios.post(url, { username, password });
-      setData(response.data.access_token);
-      setUser(response.data.user);
+      const userData = { ...response.data.user, isLogged: true };
+      setToken(response.data.access_token);
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -48,8 +57,6 @@ const Login: FC<Props> = () => {
     setUsername('');
     setPassword('');
   };
-
-  console.log(data);
 
   return (
     <Card>
