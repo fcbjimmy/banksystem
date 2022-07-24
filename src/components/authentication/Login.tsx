@@ -1,4 +1,4 @@
-import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
+import { FC, useState, SyntheticEvent, ChangeEvent } from "react";
 import css from "./login.module.css";
 import Button from "../UI/Button";
 import Input from "../UI/Input";

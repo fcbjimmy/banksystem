@@ -1,4 +1,4 @@
-import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
+import { FC, useState, SyntheticEvent, ChangeEvent } from "react";
 import Card from "../UI/Card";
 import Input from "../UI/Input";
 import csstyle from "./login.module.css";

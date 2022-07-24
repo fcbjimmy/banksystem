@@ -1,0 +1,18 @@
+.container {
+  border: 1px black solid;
+  width: 28rem;
+  max-height: 8.2rem;
+  background-color: yellowgreen;
+  border: none;
+  border-radius: 0.4rem;
+  margin: 1.5rem auto;
+}
+
+.container h2 {
+  color: black;
+  font-size: 1.2rem;
+  padding: 2rem 1.8rem;
+}
+
+.form {
+}

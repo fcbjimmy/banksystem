@@ -33,12 +33,6 @@ const Navbar = () => {
           <AiOutlineMenu onClick={() => setIsMobile(!isMobile)} />
         </div>
       </div>
-      <div className={navbarcss.rightside}>
-        <input type="text" placeholder="Search..." />
-        <button>
-          <AiOutlineSearch />
-        </button>
-      </div>
     </div>
   );
 };

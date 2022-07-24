@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 60rem;
+  margin: 1rem auto;
+  height: 30rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+
+.tableWrapper {
+  overflow-y: scroll;
+  border-radius: 0.5rem;
+}
+
+.table {
+  height: 100%;
+  width: 28rem;
+  background-color: white;
+}
+
+.tBody {
+  background-color: inherit;
+  height: 100%;
+  overflow: scroll;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 4rem;
+  padding: 1rem;
+  border-bottom: 1px solid #dddddd;
+  background-color: inherit;
+}
+
+.list:hover {
+  cursor: pointer;
+}
+
+.tdName {
+  padding-right: 10px;
+  margin-right: 10px;
+  background-color: inherit;
+}
+
+.tdDate {
+  border: 1px red solid;
+  margin-right: auto;
+  background-color: inherit;
+}
+
+.tdValue {
+  border: 1px red solid;
+  background-color: inherit;
+}
