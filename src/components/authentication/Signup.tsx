@@ -1,19 +1,37 @@
-import React, { FC, useState, SyntheticEvent, ChangeEvent } from "react";
-import Card from "../UI/Card";
-import Input from "../UI/Input";
-import csstyle from "./login.module.css";
-import { FaUserAlt } from "react-icons/fa";
-import Button from "../UI/Button";
-import { BsGoogle } from "react-icons/bs";
+import { FC, useState, SyntheticEvent, ChangeEvent } from 'react';
+import { debounce } from 'lodash';
+import Card from '../UI/Card';
+import Input from '../UI/Input';
+import csstyle from './login.module.css';
+import { FaUserAlt } from 'react-icons/fa';
+import Button from '../UI/Button';
+import { BsGoogle } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useUserContext } from '../../context/useContext';
+
+const url = '/users';
 
 const Signup: FC = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmpassword, setConfirmPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>('');
+  const [data, setData] = useState<object | null>(null);
+  const [firstname, setFirstName] = useState<string>('');
+  const [lastname, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const { setErrorModal, setError } = useUserContext();
 
   const handleInputName = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+    setUsername(e.target.value);
+  };
+
+  const handleInputFirstName = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleInputLastName = (e: ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
   };
 
   const handleInputEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,20 +42,36 @@ const Signup: FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleInputConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.target.value);
-  };
+  const debounceName = debounce(handleInputName, 800);
+  const debounceFirstName = debounce(handleInputFirstName, 800);
+  const debounceLastName = debounce(handleInputLastName, 800);
+  const debounceInputEmail = debounce(handleInputEmail, 800);
+  const debounceInputPassword = debounce(handleInputPassword, 800);
 
-  const handleSubmitForm = (e: SyntheticEvent) => {
+  const handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log({ name });
-    console.log({ email });
-    console.log({ password });
-    console.log({ confirmpassword });
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    try {
+      const response = await axios.post(url, {
+        username,
+        first_name: firstname,
+        last_name: lastname,
+        email,
+        password,
+      });
+      setData(response.data.access_token);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+        setErrorModal(true);
+      } else {
+        console.error('Unexpected error', error);
+      }
+    }
+    setUsername('');
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -45,36 +79,21 @@ const Signup: FC = () => {
       <form onSubmit={handleSubmitForm}>
         <FaUserAlt className={csstyle.icon} />
         <legend className={csstyle.legend}>Sign Up</legend>
-        <div className={csstyle.description}>
-          Please fill this form to create an account
-        </div>
+        <div className={csstyle.description}>Please fill this form to create an account</div>
+        <Input placeholder={'Username'} required name={'username'} onChange={debounceName} />
         <Input
-          value={name}
-          placeholder={"Full Name"}
+          placeholder={'First Name'}
           required
-          name={"name"}
-          onChange={handleInputName}
+          name={'firstname'}
+          onChange={debounceFirstName}
         />
+        <Input placeholder={'Last Name'} required name={'lastname'} onChange={debounceLastName} />
+        <Input placeholder={'Email'} required name={'email'} onChange={debounceInputEmail} />
         <Input
-          value={email}
-          placeholder={"Email"}
+          placeholder={'Password'}
           required
-          name={"email"}
-          onChange={handleInputEmail}
-        />
-        <Input
-          value={password}
-          placeholder={"Password"}
-          required
-          name={"password"}
-          onChange={handleInputPassword}
-        />
-        <Input
-          value={confirmpassword}
-          placeholder={"Confirm Password"}
-          required
-          name={"confirmpass"}
-          onChange={handleInputConfirmPassword}
+          name={'password'}
+          onChange={debounceInputPassword}
         />
         <Button>Sign Up</Button>
         <Button icon>
@@ -85,7 +104,7 @@ const Signup: FC = () => {
           Already have an existing account?
           <br />
           <span>
-            Login <a href="/">here!</a>
+            Login <Link to='/'>here!</Link>
           </span>
         </div>
       </form>

@@ -1,0 +1,31 @@
+.container {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 0.875rem 0.7rem;
+  border-radius: 10px;
+  max-width: 37.5rem;
+  min-width: 18.75rem;
+  box-shadow: 0 0 10px 0px #adadad;
+}
+
+.btnmodal {
+  position: relative;
+  top: 0%;
+  left: 73%;
+  width: 4rem;
+  height: 1.875rem;
+  background: #f65656;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.btnmodal:hover {
+  background: #ec3434;
+}
