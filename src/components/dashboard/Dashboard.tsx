@@ -18,6 +18,7 @@ const Dashboard: FC<Props> = () => {
     setGmail(false);
     signOutUser();
     setUser({});
+    localStorage.removeItem('user');
   };
 
   return (
