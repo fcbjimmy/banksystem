@@ -1,20 +1,18 @@
 import styles from "./transfer.module.css";
-import Input from "../UI/Input";
+import CardOperation from "../UI/CardOperation";
 
 export interface IAppProps {}
 
 const Transfer = (props: IAppProps) => {
+  const title = "Transfer Money";
   return (
-    <div className={styles.container}>
-      <h2>Transfer Money</h2>
-      <form className={styles.form}> 
-        <input type="text" />
-        <input type="number" />
-        <button></button>
-        <label>Transfer to</label>
-        <label>Amount</label>
-      </form>
-    </div>
+    <CardOperation title={title} colorProp={"green"}>
+      <input type="text" />
+      <input type="number" />
+      <button>Send</button>
+      <label>Transfer to</label>
+      <label>Amount</label>
+    </CardOperation>
   );
 };
 

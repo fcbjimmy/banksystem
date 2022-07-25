@@ -1,6 +1,7 @@
 import { FC } from "react";
 import style from "./table.module.css";
 import Transfer from "./Transfer";
+import Loan from "./Loan";
 
 interface Props {
   data: { name: string; date: string; value: number; type: string }[];
@@ -23,7 +24,10 @@ const Table: FC<Props> = ({ data }) => {
             </tbody>
           </table>
         </div>
-        <Transfer />
+        <div>
+          <Transfer />
+          <Loan />
+        </div>
       </div>
     </>
   );

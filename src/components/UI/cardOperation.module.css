@@ -8,8 +8,18 @@
   margin-bottom: 2rem;
 }
 
-.container h2 {
-  color: black;
+.containerBlue {
+  width: 28rem;
+  height: 9rem;
+  max-height: 10rem;
+  background-color: #a2d7f9;
+  background-image: linear-gradient(135deg, #a2d7f9 0%, #35afff 100%);
+  border-radius: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.container h2,
+.containerBlue h2 {
   font-size: 1rem;
   padding: 1.5rem 0rem 0.5rem 1.8rem;
 }
@@ -21,7 +31,6 @@
   grid-template-columns: 8rem 8rem 3rem;
   column-gap: 0.5rem;
   row-gap: 0.3rem;
-  border: 1px red solid;
 }
 
 .form input {
@@ -40,8 +49,17 @@
 .form button {
   border: none;
   border-radius: 2px;
+  width: 4rem;
 }
 
 .form button:hover {
   box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .container,
+  .containerBlue {
+    margin: 2rem auto;
+    height: 45rem;
+  }
 }

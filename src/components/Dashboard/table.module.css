@@ -4,7 +4,6 @@
   max-width: 60rem;
   margin: 1rem auto;
   height: 30rem;
-  border: 1px solid black;
   border-radius: 1rem;
 }
 
@@ -46,12 +45,26 @@
 }
 
 .tdDate {
-  border: 1px red solid;
   margin-right: auto;
   background-color: inherit;
 }
 
 .tdValue {
-  border: 1px red solid;
   background-color: inherit;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    margin: 2rem auto;
+    height: 45rem;
+  }
+
+  .tableWrapper {
+    margin: 0rem auto;
+  }
+
+  .table {
+    height: 20rem;
+  }
 }

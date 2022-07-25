@@ -1,20 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
 .content {
   display: flex;
   justify-content: space-between;
   max-width: 60rem;
   margin: 0rem auto;
-  padding: 2rem 0rem;
-  font-family: "Poppins", sans-serif;
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
   font-size: 2rem;
   font-weight: bold;
   color: #444444;
-  border: 2px red solid;
 }
 
 .content .balanceTitle {
-  font-size: 1.23rem;
+  font-size: 1.3rem;
 }
 
 .balanceTitle span {
