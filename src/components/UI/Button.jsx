@@ -1,4 +1,4 @@
-import css from './Button.module.css';
+import css from './button.module.css';
 
 const Button = (props) => {
   const { children, type, icon, ...rest } = props;
