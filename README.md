@@ -9,7 +9,7 @@ Technologies used:
 
 React  
 TypeScript  
-CSS Modules
+CSS Modules  
 Axios  
 Firebase  
 
