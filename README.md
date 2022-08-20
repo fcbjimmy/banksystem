@@ -1,8 +1,8 @@
 # Bank System app (In progress)
 
-Side project with the intend to build a banking system with user authetincation.
+Side project with the intend to build a banking system with user authentication.
 
-Authetincation page finished.
+authentication page finished.
 
 Technologies used:
 
@@ -10,7 +10,8 @@ React
 TypeScript  
 CSS Modules  
 Axios  
-Firebase
+Firebase  
+
 
 ## Run in the local
 
