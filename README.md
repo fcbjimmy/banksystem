@@ -1,9 +1,8 @@
 # Bank System app (In progress)
 
+Side project with the intend to build a banking system with user authentication.
 
-Side project with the intend to build a banking system with user authetincation.
-
-Authetincation page finished.
+authentication page finished.
 
 Technologies used:
 
@@ -20,5 +19,3 @@ Firebase
 npm install / yarn install
 npm start / yarn start
 ```
-
-

@@ -1,45 +1,40 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  FC,
-  ReactNode,
-} from "react";
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { auth } from "../firebase/firebase-config";
+import { createContext, useState, useContext, useEffect, FC, ReactNode } from 'react';
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../firebase/firebase-config';
 
 interface props {
   children: ReactNode;
 }
 
-const userContext = createContext<object | null>(null);
+const userContext = createContext<void | object | null | any>(null);
 
 const useUserContext = () => useContext(userContext);
 
 const googleProvider = new GoogleAuthProvider();
 
 const UserContextProvider: FC<props> = ({ children }) => {
-  const [user, setUser] = useState<null | object>(null);
+  const [user, setUser] = useState<string | object>({});
   const [loading, setLoading] = useState<boolean | undefined>();
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>('');
+  const [errorModal, setErrorModal] = useState<boolean>(false);
+  const [gmail, setGmail] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (account) => {
-      account ? setUser(account) : setUser(null);
-      setError("");
+      if (account) {
+        const gmailUser = { ...account, isLogged: true };
+        setUser(gmailUser);
+        localStorage.setItem('user', JSON.stringify(gmailUser));
+        setGmail(true);
+      }
+      setError('');
       setLoading(false);
     });
     return unsubscribe;
-  }, [user]);
+  }, []);
 
-  const signInWithGmail = () => {
+  const signInWithGmail = (): void => {
     signInWithPopup(auth, googleProvider);
   };
 
@@ -47,17 +42,27 @@ const UserContextProvider: FC<props> = ({ children }) => {
     signOut(auth);
   };
 
-  const contextValue = {
-    user,
-    loading,
-    error,
-    signOutUser,
-    setError,
-    signInWithGmail,
-  };
+  const toggleModal = () => setErrorModal(!errorModal);
 
   return (
-    <userContext.Provider value={contextValue}>{children}</userContext.Provider>
+    <userContext.Provider
+      value={{
+        user,
+        loading,
+        error,
+        errorModal,
+        gmail,
+        setUser,
+        signOutUser,
+        setError,
+        signInWithGmail,
+        toggleModal,
+        setErrorModal,
+        setGmail,
+      }}
+    >
+      {children}
+    </userContext.Provider>
   );
 };
 

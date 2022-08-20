@@ -1,16 +1,7 @@
-import React from "react";
-import inputcss from "./Input.module.css";
+import inputcss from './Input.module.css';
 
 const Input = (props) => {
-  const {
-    children,
-    type = "text",
-    placeholder,
-    label,
-    name,
-    required,
-    ...rest
-  } = props;
+  const { children, type = 'text', placeholder, label, name, required, ...rest } = props;
 
   return (
     <div className={inputcss.formgroup}>
